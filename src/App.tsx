@@ -1,10 +1,33 @@
- function App() {
-       return (
-         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-           <h1 className="text-4xl font-bold text-blue-600">
-             ¡Hola! Mi Organizador de Hábitos está en construcción 🚀
-           </h1>
-         </div>
-       );
-     }
-     export default App;
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useLocalStorage } from "./useLocalStorage";
+import Login from "./Login";
+import Register from "./Register";
+import Dashboard from "./Dashboard";
+import Landing from "./Landing";
+
+interface User {
+  email: string;
+  password: string;
+}
+
+function App() {
+  const [currentUser] = useLocalStorage<User | null>("currentUser", null);
+
+  const ProtectedDashboard = () => {
+    if (!currentUser) return <Navigate to="/login" />;
+    return <Dashboard />;
+  };
+
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<ProtectedDashboard />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
