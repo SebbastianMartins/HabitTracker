@@ -2,9 +2,12 @@ import { useState } from "react";
 import HabitsPanel from "./HabitsPanel";
 import FinancePanel from "./FinancePanel";
 import "./styles/Dashboard.css";
+import CalendarPanel from "./CalendarPanel";
 
 // React Icons
 import { FaRunning, FaMoneyBillWave, FaCalendarAlt, FaUserCircle } from "react-icons/fa";
+
+
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("habits");
@@ -43,7 +46,7 @@ export default function Dashboard() {
       <div className="dashboard-content">
         {activeTab === "habits" && <HabitsPanel />}
         {activeTab === "finance" && <FinancePanel />}
-        {activeTab === "calendar" && <p>Calendario en construcción 📅</p>}
+        {activeTab === "calendar" && <CalendarPanel />}
         {activeTab === "profile" && <p>Perfil en construcción 👤</p>}
       </div>
     </div>

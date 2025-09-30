@@ -1,65 +1,101 @@
 .finance-panel {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 2rem;
+  background: #1f1f2e;
+  color: #f0f0f5;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
 .finance-panel h2 {
-  margin-bottom: 15px;
-  color: #007bff;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #ffd369;
 }
 
-.total {
+.finance-balance {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.finance-balance .income {
+  color: #4caf50;
   font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 15px;
+}
+.finance-balance .expense {
+  color: #e74c3c;
+  font-weight: bold;
 }
 
-.add-expense {
+.finance-form {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
-.add-expense input, .add-expense select {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  flex: 1;
-}
-
-.add-expense button {
-  background: #28a745;
-  color: white;
+.finance-form input,
+.finance-form select {
+  padding: 0.5rem;
+  border-radius: 8px;
   border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
+  outline: none;
+  flex: 1;
+  color: #333
+}
+
+.finance-form button {
+  background: #ffd369;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+.finance-form button:hover {
+  background: #ffbe0b;
 }
 
-.add-expense button:hover {
-  background: #218838;
-}
-
-.expenses-list {
+.finance-list {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
-.expenses-list li {
+.finance-list li {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  background: #f5f7fa;
-  margin-bottom: 8px;
-  padding: 10px;
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
   border-radius: 8px;
+  background: #2a2a40;
 }
 
-.expenses-list li .category {
-  font-size: 0.8rem;
-  color: #555;
+.finance-list li.income {
+  border-left: 6px solid #4caf50;
+}
+
+.finance-list li.expense {
+  border-left: 6px solid #e74c3c;
+}
+
+.finance-list .empty {
+  text-align: center;
+  color: #999;
+}
+.finance-form select {
+  background: white; /* o cualquier color sólido que te guste */
+  border: 1px solid #ddd;
+  padding: 0.6rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333;
+  outline: none;
+  appearance: none; /* quita estilos por defecto del navegador */
+  transition: all 0.3s ease;
+}
+
+.finance-form select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
 }

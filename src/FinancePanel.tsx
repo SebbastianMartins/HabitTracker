@@ -1,76 +1,102 @@
 import { useState } from "react";
 import "./styles/FinancePanel.css";
 
-interface Expense {
+interface Transaction {
   id: number;
-  name: string;
+  type: "ingreso" | "gasto";
   amount: number;
   category: string;
+  description: string;
 }
 
-const categoriesColors: { [key: string]: string } = {
-  Comida: "#ff6b6b",
-  Transporte: "#4ecdc4",
-  Ocio: "#ffa500",
-  Otros: "#6a5acd",
-};
+export default function FinancePanel() {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [type, setType] = useState<"ingreso" | "gasto">("gasto");
+  const [amount, setAmount] = useState<number>(0);
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
 
-export default function FiancePanel() {
-  const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [name, setName] = useState("");
-  const [amount, setAmount] = useState("");
-  const [category, setCategory] = useState("Comida");
-
-  const addExpense = () => {
-    if (!name || !amount) return;
-    setExpenses([
-      ...expenses,
-      { id: Date.now(), name, amount: parseFloat(amount), category },
-    ]);
-    setName("");
-    setAmount("");
-    setCategory("Comida");
+  const handleAdd = () => {
+    if (!amount || !category) return;
+    const newTransaction: Transaction = {
+      id: Date.now(),
+      type,
+      amount,
+      category,
+      description,
+    };
+    setTransactions([...transactions, newTransaction]);
+    setAmount(0);
+    setCategory("");
+    setDescription("");
   };
 
-  const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+  // --- Estadísticas ---
+  const totalIngresos = transactions
+    .filter((t) => t.type === "ingreso")
+    .reduce((acc, t) => acc + t.amount, 0);
+
+  const totalGastos = transactions
+    .filter((t) => t.type === "gasto")
+    .reduce((acc, t) => acc + t.amount, 0);
+
+  const balance = totalIngresos - totalGastos;
 
   return (
     <div className="finance-panel">
-      <h2>Finanzas 💰</h2>
-      <div className="total">Saldo total: ${total.toFixed(2)}</div>
+      <h2>Gestión de Finanzas</h2>
 
-      {/* Formulario para añadir gasto */}
-      <div className="add-expense">
-        <input
-          type="text"
-          placeholder="Nombre del gasto"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+      {/* Formulario */}
+      <div className="finance-form">
+        <select value={type} onChange={(e) => setType(e.target.value as any)}>
+          <option value="gasto">Gasto</option>
+          <option value="ingreso">Ingreso</option>
+        </select>
+
         <input
           type="number"
-          placeholder="Cantidad"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          placeholder="Monto"
+          value={amount || ""}
+          onChange={(e) => setAmount(Number(e.target.value))}
         />
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          {Object.keys(categoriesColors).map((cat) => (
-            <option key={cat} value={cat}>{cat}</option>
-          ))}
-        </select>
-        <button onClick={addExpense}>Agregar</button>
+
+        <input
+          type="text"
+          placeholder="Categoría (Ej: Comida, Ocio)"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        />
+
+        <input
+          type="text"
+          placeholder="Descripción"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+
+        <button onClick={handleAdd}>Añadir</button>
       </div>
 
-      {/* Lista de gastos */}
-      <ul className="expenses-list">
-        {expenses.map((e) => (
-          <li key={e.id} style={{ borderLeft: `5px solid ${categoriesColors[e.category]}` }}>
-            <span>{e.name}</span>
-            <span>${e.amount.toFixed(2)}</span>
-            <span className="category">{e.category}</span>
+      {/* Lista de movimientos */}
+      <ul className="finance-list">
+        {transactions.map((t) => (
+          <li key={t.id} className={t.type}>
+            <span>
+              {t.type === "gasto" ? "🛑" : "💰"} {t.category} — {t.description}
+            </span>
+            <span>{t.type === "gasto" ? "-" : "+"}${t.amount}</span>
           </li>
         ))}
       </ul>
+
+      {/* Estadísticas */}
+      <div className="finance-stats">
+        <p>💰 Total Ingresos: <strong>${totalIngresos}</strong></p>
+        <p>🛑 Total Gastos: <strong>${totalGastos}</strong></p>
+        <p>📊 Balance: <strong style={{color: balance >= 0 ? "green" : "red"}}>
+          ${balance}
+        </strong></p>
+      </div>
     </div>
   );
 }

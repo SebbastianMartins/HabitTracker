@@ -1,0 +1,89 @@
+/* src/styles/CalendarPanel.css */
+.calendar-panel {
+  padding: 2rem;
+  background: #1f1f2e;
+  color: #f0f0f5;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  text-align: center;
+}
+
+.calendar-panel h2 {
+  color: #ffd369;
+  margin-bottom: 1rem;
+}
+
+.calendar-panel h3 {
+  margin-top: 2rem;
+  color: #ffd369;
+}
+
+.calendar-panel ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.5rem;
+}
+
+.calendar-panel li {
+  background: #2a2a40;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem;
+  border-radius: 8px;
+}
+
+/* react-calendar styles */
+.react-calendar {
+  width: 100%;
+  max-width: 500px;
+  background: #1f1f2e;
+  color: #f0f0f5;
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  margin: 0 auto;
+}
+
+.react-calendar__navigation button {
+  color: #f0f0f5;
+  min-width: 44px;
+  background: #2a2a40;
+  margin: 0 2px;
+  border-radius: 8px;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #3a3a5e;
+}
+
+.react-calendar__month-view__days__day {
+  color: #f0f0f5;
+  font-weight: bold;
+}
+
+.react-calendar__tile {
+  background: #2a2a40;
+  border-radius: 8px;
+  margin: 2px;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background: #3a3a5e;
+}
+
+.react-calendar__tile--now {
+  background: #ffd369;
+  color: #1f1f2e;
+}
+
+.react-calendar__tile--active {
+  background: #4caf50;
+  color: #fff;
+}
+
+/* Día con hábito completado */
+.completed-day {
+  background-color: #28a745 !important;
+  color: white !important;
+}
